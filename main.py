@@ -1,6 +1,8 @@
 # adapted from https://www.freecodecamp.org/news/create-a-discord-bot-with-python/
 import discord
 import os
+from dog import *
+from ageify import *
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -17,19 +19,38 @@ async def on_ready():
 @client.event
 async def on_message(message):
     print(f"Received message: {message.content}")
-    if message.author.name == client.user:
+    if f"{message.author.name}#6841" == client.user:
         return
     
     if message.content.lower() in ['hello','hi', 'hello goanna', 'hi goanna'] and message.author.name == "_goanna":
         await message.channel.send('Hello, my good-natured and benevolent mother')
     elif message.content.lower() in ['hello','hi', 'hello goanna', 'hi goanna']:
-        await message.channel.send('Hello peasant')
+        await message.channel.send('Hello, peasant')
 
     if 'goanna' in message.content.lower() and message.author.name != 'a solitary goanna':
         await message.channel.send('You summoned the goanna\nRAHHHHHHH\n🦎🦎🦎🦎🦎🦎🦎🦎')
 
+    # API commands (note it starts with /g)
+    if message.content.startswith('/g dog'):
+        await message.channel.send(getDog())
 
+    if message.content.lower().startswith('/g name'):
+        # if in form '/g name Michael age' will return the average age of people w that name
+        # if in form '/g name Michael count' will return the number of people with the name
+        name = message.content.split(" ")[2]
+        value = message.content.lower().split(" ")[3]
+        print(value)
+        if value in ["age\n", "count\n", "age", "count"]:
+            await message.channel.send(ageify(name, value))
+        else:
+            await message.channel.send("Must specify either age or count. Type \"/g help\" to get more info")
 
+    # help
+    if message.content.lower().startswith('/g help'):
+        await message.channel.send("Help:\n\n**/g name *your-name-goes-here* count||age** - " +
+                                   "e.g. /g name Anna count  or  /g name Anna age\nWill return number of people with the name Anna " +
+                                   "or the average age of people with the name Anna\n\n" +
+                                   "**/g dog** - will return a random dog picture from the dog API")
 
 print("Token from environment variable:", os.getenv('TOKEN'))
 
