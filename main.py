@@ -22,12 +22,16 @@ async def on_message(message):
     if f"{message.author.name}#6841" == client.user:
         return
     
-    if message.content.lower() in ['hello','hi', 'hello goanna', 'hi goanna'] and message.author.name == "_goanna":
+    hello_phrases = ['hello solitary goanna', 'hi solitary goanna', 
+                     'hello a solitary goanna', 'hi a solitary goanna']
+    
+    if message.content.lower() in hello_phrases and message.author.name == "_goanna":
         await message.channel.send('Hello, my good-natured and benevolent mother')
-    elif message.content.lower() in ['hello','hi', 'hello goanna', 'hi goanna']:
+    
+    elif message.content.lower() in hello_phrases:
         await message.channel.send('Hello, peasant')
 
-    if 'goanna' in message.content.lower() and message.author.name != 'a solitary goanna':
+    elif 'goanna' in message.content.lower() and message.author.name != 'a solitary goanna':
         await message.channel.send('You summoned the goanna\nRAHHHHHHH\n🦎🦎🦎🦎🦎🦎🦎🦎')
 
     # API commands (note it starts with /g)
@@ -39,7 +43,6 @@ async def on_message(message):
         # if in form '/g name Michael count' will return the number of people with the name
         name = message.content.split(" ")[2]
         value = message.content.lower().split(" ")[3]
-        print(value)
         if value in ["age\n", "count\n", "age", "count"]:
             await message.channel.send(ageify(name, value))
         else:
