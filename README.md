@@ -6,8 +6,11 @@ So of course, as an introvert myself, what better name than "a solitary goanna"?
 # Functionality
 
 **/help** - helps you
+
 **/agefiy** - allows you to request data from the ageify API (can find how many people share your name/what the average age is) -> options of count or age
+
 **/dog** - shows a random pic from the dog API
+
 **Other functionality:**
 - Responds to someone saying "[hi/hello] [a] solitary goanna"
 - Responds to *me* saying "[hi/hello] [a] solitary goanna" ;)
